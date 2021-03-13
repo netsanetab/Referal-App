@@ -48,7 +48,8 @@ def liaizon_signup_view(request):
         liaizonForm = forms.LiaizonForm(request.POST, request.FILES)
         if userForm.is_valid() and liaizonForm.is_valid():
             user = userForm.save()
-            user.set_password(user.password) 
+            user.set_password(user.password)  
+            # test comment
             user.save()
              liaizon = liaizonForm.save(commit=False)
             liaizon.user = user

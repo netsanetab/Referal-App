@@ -50,7 +50,7 @@ def liaizon_signup_view(request):
             user = userForm.save()
             user.set_password(user.password)
             user.save()
-            liaizon = liaizonForm.save(commit=False)
+             liaizon = liaizonForm.save(commit=False)
             liaizon.user = user
             liaizon.assignedHospitalID = request.POST.get('assignedHospitalID')
             liaizon.save()

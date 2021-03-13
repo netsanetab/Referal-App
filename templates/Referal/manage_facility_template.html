@@ -1,0 +1,59 @@
+{% extends "Referal/regionaladmin/base_regional.html" %}
+{% load static %}
+
+{% block main_content %}
+
+
+
+<div class="col-lg-12">
+  <!--Project Activity start-->
+  <section class="panel">
+    <div class="panel-body progress-panel">
+      <div class="row">
+        <div class="col-lg-12 task-progress pull-left">
+          <h1 align="center"><b>ADD CATCHMENTS FOR FACILITIES</b></h1>
+        </div>
+        
+      </div>
+    </div>
+    <table class="table table-striped">
+      <thead>
+        <tr class="bg-teal">
+          <th>ID</th>
+          <th>Facility Name</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+        <tbody>
+            {% for facility in facilitys %}
+            <tr>
+              <td>{{facility.id}}</td>
+              <td>{{facility.facility_name}}</td>
+              <td><a href="{% url 'edit_facility' facility_id=facility.id %}" class="btn btn-success">Edit</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </section>
+     <div class="pagination">
+    {% if facilitys.paginator.num_pages > 1 %}
+      {% if facilitys.has_previous %}
+        <a href="?page={{ facilitys.previous_page_number }}">PREVIOUS</a>
+      {% endif %}
+
+    <span>Page {{ facilitys.number }} of {{ facilitys.paginator.num_pages }}</span>
+
+    {% if facilitys.has_next %}
+
+        <a href="?page={{ facilitys.next_page_number }}">NEXT</a>
+
+    {% endif %}
+
+{% endif %}</div>
+  </div>
+</div><br><br>
+
+
+{% endblock main_content %}
+
+

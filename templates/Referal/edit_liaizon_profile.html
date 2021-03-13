@@ -1,0 +1,21 @@
+{% extends "Referal/liaizon/base_customer.html" %}
+{% load static %}
+{% load widget_tweaks %}
+{% block main_content %}
+
+
+<h1 style="text-align:center;color:blue;">Edit Your Profile</h1>
+<br><br>
+<div class="row " style="padding-left: 500px">
+<div class="col-md-6">
+<form method="post">
+  {% csrf_token %}
+  {{form.as_p }}
+  <div style="text-align: center;">
+  <button type="submit">Save changes</button>
+  </div>
+</form>
+</div>
+</div>
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+{% endblock main_content %}

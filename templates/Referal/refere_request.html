@@ -1,0 +1,212 @@
+{% extends "Referal/liaizon/base_customer.html" %}
+{% load static %}
+
+{% block main_content %}
+<div class="panel-body progress-panel">
+  <div class="row">
+    <div class="col-lg-12 task-progress pull-left">
+      <h1 align="center"><b>REFER A PATIENT</b></h1>
+    </div>
+    
+  </div>
+</div><br>
+<div class="box-body bg-info">
+<div class="alert-info col-md-8 ">
+                  {% if messages %}
+                      {% for message in messages %}
+                  <!-- For Failure -->
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                          {% if message.tags == 'error' %}
+                            <div class="alert alert-danger" style="margin-top:10px">{{message}}</div>
+                          {% endif %}
+                  <!-- For Success -->
+                          {% if message.tags == 'success' %}
+                            <div class="alert alert-success" style="margin-top:10px">{{message}}</div>
+                          {% endif %}
+                      {% endfor %}
+                 {% endif %}
+                          {% comment %} <strong><span class="glyphicon glyphicon-ok"></span>   </strong> {% endcomment %}
+              </div>
+  <form role="form" method="post" action="/refere-request-save" >
+      {% csrf_token %}
+ <!-- <input type="hidden" value="<?php echo $facility_id ?>"   name="from_facility" > -->
+ <!-- <input type="hidden" value="<?php echo $name ?>"   name="referred_by" > -->
+ <div class="row " style="padding-left: 50px">
+  <div class="col-md-6">
+      <div class="form-group col-md-10">
+          <label for="type_of_referal"><b>Type of Referal</b></label>
+          <select class="form-control" name="type_of_referal" required>
+              <option value="">---- Select Type of Referal-------</option>
+              <option value="COLD">COLD</option>
+              <option value="EMERGENCY">EMERGENCY</option>
+          </select>
+      </div><br>
+      
+
+        <div class="form-group col-md-4">
+          <label><b>Patient Name</b></label>
+          <input type="text" class="form-control" name="name_of_patient" placeholder="Patient Name" required>
+        </div>
+        <div class="form-group col-md-2">
+          <label><b>Age</b></label>
+          <input type="number" class="form-control" name="paient_age" placeholder=" Age" required>
+       </div>
+       <div class="form-group col-md-4">
+          <label><b>Gender</b></label>
+          <select class="form-control select2" name="gender" data-placeholder="Select gender" required>
+            <option>---------Select Gender-------</option>
+            <option>Male</option>
+            <option>Female</option>
+          </select>
+        </div>
+        <div class="form-group col-md-5">
+          <label for="patient_region"><b>Patient Region</b></label>
+              <select class="form-control" name="patient_region">
+              <option value="">---- Select Patient Region -------</option>
+                  {% for region in regions %}
+                      <option value={{region}}>{{region}}</option>
+                  {% endfor %}
+              </select>
+         </div> 
+         <div class="form-group col-md-5">
+              <label> <b>SubCity/Zone</b></label>
+              <input type="text" class="form-control" name="patient_subcity" placeholder="Enter patient Subcity" required>
+          </div>
+          
+
+      
+      
+      <div class="form-group col-md-5">
+          <label> <b>Woreda</b></label>
+          <input type="text" class="form-control" name="patient_woreda" placeholder=" Woreda" required>
+      </div>
+      <div class="form-group col-md-5">
+          <label><b>Phone</b></label>
+          <div class="input-group">
+            <div class="input-group-addon">
+              <i class="fa fa-phone"></i>
+            </div> 
+          <input type="" class="form-control" name="patient_phone" placeholder="Patient Phone" required>
+          </div>
+        </div>
+      
+      
+        
+       
+        <div class="form-group col-md-10">
+          <label><b>Chief Complaints</b></label>
+          <textarea class="form-control" name="chief_compliants" required></textarea>
+          <!-- <input type="text" class="form-control" name="chief_compliants" placeholder="Enter chief complaints" required> -->
+        </div>
+        <div class="form-group col-md-10">
+          <label><b>Diagnosis</b></label>
+          <textarea class="form-control" name="diagnosis" required></textarea>
+      </div>
+      <div class="form-group col-md-10">
+        <label><b>Required service</b></label>
+            <select class="form-control" name="required_service">
+                    <option value="">------------------------------------- Select Available Services-----------------------------------</option>
+                     {% for service in services %} 
+                    <option value={{service.id}}>{{service.name}}</option>
+                    {% endfor %} 
+            </select>
+        
+      </div>
+  </div>
+
+  <div class="col-md-6">
+     
+      
+      <div class="form-group col-md-10">
+          <label><b>Reason for Referral</b></label>
+          <textarea class="form-control" name="reason_for_referal" required></textarea>
+        </div>
+      <div class="form-group col-md-5" required>
+          <label><b>Refering Dr</b></label>
+          <input type="text" class="form-control" name="refering_dr" placeholder="Enter referring Doctor Name" required>
+      </div>
+      <div class="form-group col-md-5">
+        <label><b>Dr phone</b></label>
+        <div class="input-group">
+          <div class="input-group-addon">
+            <i class="fa fa-phone"></i>
+          </div>
+        
+          <input type="" class="form-control" name="dr_phone" placeholder="Dr Phone" required>
+        </div></div>
+
+        <div class="form-group col-md-5">
+          <label><b>Blood Type</b></label>
+          <select class="form-control select2" name="blood_type" data-placeholder="Select Blood Type" required>
+            <option>------- Select Blood Type-------</option>
+            <option>A</option>
+            <option>A+</option>
+            <option>A-</option>
+            <option>AB</option>
+            <option>AB+</option>
+            <option>AB-</option>
+            <option>O</option>
+            <option>O-</option>
+            
+            
+          </select>
+        </div>
+        <div class="form-group col-md-5">
+          <label><b>Blood Transfusion</b></label>
+          <select class="form-control select2" name="blood_transfusion" data-placeholder="Select Blood Type" required>
+            <option>---- Select Blood Transfusion-------</option>
+            <option>YES</option>
+            <option>No</option>
+            
+            
+          </select>
+        </div>
+
+      <div class="form-group col-md-5">
+          <label><b>Ambulance Driver</b></label>
+          <input type="" class="form-control" name="ambulance_driver_name" placeholder="Enter Driver Name" required>
+        </div>
+        <div class="form-group col-md-5">
+          <label><b>Ambulance Driver Phone</b></label>
+          <div class="input-group">
+            <div class="input-group-addon">
+              <i class="fa fa-phone"></i>
+            </div>
+            <input type="" class="form-control" name="ambulance_driver_phone" placeholder="Driver Phone" required>
+          </div>
+      </div> 
+      <div class="form-group col-md-5">
+          <label><b>Name of Liason Officer</b></label>
+          <input type="" class="form-control" name="ahp_name" value="{{nam}}" placeholder="Enter liason Officer Name" readonly>
+        </div>
+        <div class="form-group col-md-5">
+          <label><b>Liaizon   Phone</b></label>
+          <div class="input-group">
+            <div class="input-group-addon">
+              <i class="fa fa-phone"></i>
+            </div> 
+          <input type="" class="form-control" name="ahp_phone" value = "{{liaizon.get_phone}}" placeholder="Liason phone" readonly>
+          </div>
+        </div>
+        <div class="form-group col-md-5">
+           <label><b>Refer to Hospital</b></label>
+              <select class="form-control select2" name="referal_to" data-placeholder="Select Hospital from your catchment" required>
+                
+                  <option value="">------------------- Select Facilities --------------</option>
+                      {% for facility in facilitys %}
+                          <option value={{facility.id}}>{{facility.facility_name}}</option>
+                      {% endfor %}
+              </select>
+        </div>
+  </div>
+        
+  <div class="row" style="text-align: center;" >
+      <div class="form-group col-md-11">
+        <input type="submit" class="btn btn-success" name="" value="submit">
+        
+      </div>  
+  </div> 
+</div> 
+  </form>
+
+  {% endblock main_content %}

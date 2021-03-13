@@ -1,0 +1,88 @@
+{% extends "Referal/liaizon/base_customer.html" %}
+{% load static %}
+
+{% block main_content %}
+<div class="panel-body progress-panel">
+  <div class="row">
+    <div class="col-lg-12 task-progress pull-left">
+      <h1 align="center"><b>PATIENT DETAILS</b></h1>
+    </div>
+    
+  </div>
+</div><br>
+
+        <!--  -->
+        <div class="col-md-12">
+          <table class="table table-striped">
+            <tbody>
+              <tr>
+                <td style="text-align: right; width: 50%; color: teal">Patient Name :</td>
+                <td> {{pad.name_of_patient}}</td>
+                </tr>
+              <tr>
+                <td style="text-align: right; width: 50%; color: teal">Region :</td>
+                <td>  {{pad.patient_region}}</td>
+                </tr>
+              <tr>
+                <td style="text-align: right; width: 10%; color: teal">PatientPhone :</td>
+                <td>{{pad.patient_phone}}</td>
+              </tr>
+              <tr>
+                <td style="text-align: right; width: 40%; color: teal">ChiefCompliant :</td>
+                <td>{{pad.chief_compliants}}</td>
+                </tr>
+              
+              <tr>
+                <td style="text-align: right; width: 40%; color: teal">Diagnosis :</td>
+                <td>{{pad.diagnosis}}</td>
+                </tr>
+              <tr>
+                <td style="text-align: right; width: 40%; color: teal">Required Service :</td>
+                <td>{{pad.required_service}}</td>
+              </tr>
+              <tr>
+                <td style="text-align: right;width: 40%; color: teal">Reason Fro Referal </td>
+                <td>{{pad.reason_for_referal}}</td>
+                </tr>
+              <tr>
+                <td style="text-align: right; width: 40%; color: teal">Refering Dr :</td>
+                <td>{{pad.refering_dr}}</td>
+              </tr>
+              <tr>
+                <td style="text-align: right; width: 40%; color: teal">Ambulance Deriver :</td>
+                <td>{{pad.ahp_name}}</td>
+                </tr>
+              <tr>
+                <td style="text-align: right; width: 40%; color: teal">Patient Diagnosis :</td>
+                <td>{{pad.patient_diagnosis}}</td>
+              </tr>
+              <tr>
+                <td style="text-align: right; width: 40%; color: teal">Comments On Referal :</td>
+                <td>{{pad.comments_of_referal}}</td>
+                </tr>
+              <tr>
+                <td style="text-align: right; width: 40%; color: teal">WithRespectToMedicalCare :</td>
+                <td>{{pad.with_respect_to_medical_care}}</td>
+              </tr>
+              <tr>
+                <td style="text-align: right; width: 40%; color: teal">WithRespectToTransportation</td>
+                <td>{{pad.with_respect_patient_transportation}}</td>
+              </tr>
+              <tr>
+                <td style="text-align: right; width: 40%; color: teal">WithRespectToMedicalCare :</td>
+                <td>{{pad.with_respect_to_medical_care}}</td>
+              </tr>
+              <tr>
+                <td style="text-align: right; width: 40%; color: brown"></tdstyle> <btn-primary><a href="/liaizon_approve_request">BACK </a></btn-primary></td>
+              </tr>
+            </tbody>
+          </table>
+     
+     </div> 
+     {% endblock main_content %}
+
+
+  
+    
+
+    

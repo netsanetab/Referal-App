@@ -1,0 +1,118 @@
+  <!-- Main Sidebar Container -->
+  <aside class="main-sidebar sidebar-dark-teal elevation-4">
+    <!-- Brand Logo -->
+    <a href="/" class="brand-link navbar-teal">
+      <img src="/static/assets/img/MOH_logo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-6" style="opacity: .8">
+      <span class="brand-text font-weight-light">HMS  </span>
+    </a>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <!-- Sidebar user panel (optional) -->
+      <div class="user-panel mt-3  d-flex">
+       
+      </div>
+
+      <!-- SidebarSearch Form -->
+      <div class="form-inline">
+        <div class="input-group" data-widget="sidebar-search">
+          <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
+          <div class="input-group-append">
+            <button class="btn btn-sidebar">
+              <i class="fas fa-search fa-fw"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sidebar Menu -->
+      <nav class="mt-2">
+        <ul class="nav nav-pills nav-sidebar flex-column nav-flat nav-legacy nav-child-indent" data-widget="treeview" role="menu" data-accordion="false">
+          <!-- Add icons to the links using the .nav-icon class
+               with font-awesome or any other icon font library -->
+          <li class="nav-item">
+            <a href="/liaizon-dashboard" class="nav-link {% if 'regionaladmin' in segment %} active {% endif %}">
+              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <p>
+                Dashboard
+              </p>
+            </a>
+          </li>
+          <li class="nav-item has-treeview {% if 'forms-' in segment %} menu-open {% endif %}">
+            <a href="#" class="nav-link {% if 'forms-' in segment %} active {% endif %}">
+              <i class="nav-icon fas fa-bed"></i>
+              <p>
+                Manage Beds
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="/manage_ward" class="nav-link {% if 'forms-general' in segment %} active {% endif %}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Wards</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="/manage_ward" class="nav-link {% if 'forms-advanced' in segment %} active {% endif %}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Ward Bed Status</p>
+                </a>
+              </li>
+            </ul>
+          </li> 
+
+          <li class="nav-item has-treeview {% if 'forms-' in segment %} menu-open {% endif %}">
+            <a href="#" class="nav-link {% if 'Patient-' in segment %} active {% endif %}">
+              <i class="nav-icon fas fa-user"></i>
+              <p>
+                Patient Apointments
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="/manage_patient" class="nav-link {% if 'Patient-registration' in segment %} active {% endif %}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Patient</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="/manage_appointment" class="nav-link {% if 'Patient-appointment' in segment %} active {% endif %}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Appointment Lists</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+
+          <li class="nav-item has-treeview {% if 'forms-' in segment %} menu-open {% endif %}">
+            <a href="#" class="nav-link {% if 'forms-' in segment %} active {% endif %}">
+              <i class="nav-icon fas fa-copy"></i>
+              <p>
+                Service Directory
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="/manage_service" class="nav-link {% if 'forms-general' in segment %} active {% endif %}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Manage Services</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="/manage_services" class="nav-link {% if 'forms-advanced' in segment %} active {% endif %}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>View All Services</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+
+      </nav>
+      <!-- /.sidebar-menu -->
+    </div>
+    <!-- /.sidebar -->
+  </aside>
+  

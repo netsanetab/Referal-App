@@ -1,0 +1,122 @@
+{% extends "Referal/admin/base_admin.html" %}
+{% load static %}
+
+{% block main_content %}
+
+	<!-- ****************************************************** -->
+	<div class="row">
+		<div class="col-lg-4 col-md-3 col-sm-12 col-xs-12">
+		  <div class="info-box blue-bg">
+			<i class="fa fa-external-link"></i>
+			<div class="count">{{total_customer}}</div>
+			<div class="title">Total Users</div>
+		  </div>
+		  <!--/.info-box-->
+		</div>
+		<!--/.col-->
+	  
+		<div class="col-lg-4 col-md-3 col-sm-12 col-xs-12">
+		  <div class="info-box brown-bg">
+			<i class="fa fa-fax"></i>
+			<div class="count">{{total_facility}}</div>
+			<div class="title">Total Facilities</div>
+		  </div>
+		  <!--/.info-box-->
+		</div>
+		<!--/.col-->
+	  
+		<div class="col-lg-4 col-md-3 col-sm-12 col-xs-12">
+		  <div class="info-box dark-bg">
+			<i class="fa fa-hospital-o"></i>
+			<div class="count">{{total_request}}</div>
+			<div class="title">Total Referal Out</div>
+		  </div>
+		  <!--/.info-box-->
+		</div>
+	</div>
+	<!-- ****************************************************** -->
+	
+<!-- ****** cards end ********** -->
+<div class="col-lg-12">
+    <!--Project Activity start-->
+    <section class="panel">
+      <div class="panel-body progress-panel">
+        <div class="row">
+          <div class="col-lg-12 task-progress pull-left">
+            <h1 align="center"><strong>REFERED OUT PATIENT INFORMATION</strong></h1>
+          </div>
+          
+        </div>
+      </div>
+      <table class="table table-striped">
+<thead>
+  <tr class="bg-teal">
+    <th>Liaizon User Made Referal</th>
+    <th>Patient Name</th>
+    <th>Refered To</th>
+    <th>Refered From</th>
+    <th style="text-align: center;">Type of referral</th>
+    <th style="text-align: center;">Referred Date</th>
+    <th style="text-align: center;">Waiting Time</th>
+    <th style="text-align: center;">Feedback Time</th>
+	<th style="text-align: center;">Re-Referal Time</th>
+	<th style="text-align: center;">Status</th>
+  </tr>
+  </thead>
+        <tbody>
+				{% for c,r in data %}
+					<tr>
+						<td>{{c.get_name}}</td>
+						<td>{{r.name_of_patient}}</td>
+						<td style="text-align: center;">
+							{{r.referal_to}}
+							</td>
+						<td>{{r.customer.get_facility}}</td>
+						
+						<td style="text-align: center;" >
+				{% if r.type_of_referal == 'EMERGENCY' %}
+						<span class="label label-danger">{{r.type_of_referal}}</span>
+				{% elif r.type_of_referal == 'COLD'%}
+						<span class="badge bg-success">{{r.type_of_referal}}</span>
+				{% endif %}	
+						</td>
+						<td style="text-align: center;">
+    						{{r.refered_date}}
+            			</td>
+						<td>{{r.get_approved_day_count}}</td>
+						<td>{{r.get_feedback_date_day_count}}</td> 
+						<td>{{r.get_re_referal_date_day_count}}</td>
+            			
+            			<td style="text-align: center;">
+						<span class="badge bg-success">{{r.status}}</span>
+						</td>
+  
+          			</tr>
+           		{% endfor %}
+        </tbody>
+		
+	  </table>
+	 
+    </section>
+<div class="pagination">
+    {% if enquiry.paginator.num_pages > 1 %}
+      {% if enquiry.has_previous %}
+        <a href="?page={{ enquiry.previous_page_number }}">previous</a>
+      {% endif %}
+
+    <span>Page {{ enquiry.number }} of {{ enquiry.paginator.num_pages }}</span>
+
+    {% if enquiry.has_next %}
+
+        <a href="?page={{ enquiry.next_page_number }}">next</a>
+
+    {% endif %}
+
+{% endif %}</div>
+  </div>
+</div><br><br>
+
+
+
+	<!-- end main content -->
+	{% endblock main_content %}

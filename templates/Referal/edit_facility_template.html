@@ -1,0 +1,107 @@
+{% extends "Referal/regionaladmin/base_regional.html" %}
+{% load static %}
+
+{% block main_content %}
+
+      
+<div class="panel-body progress-panel">
+  <div class="row">
+    <div class="col-lg-12 task-progress pull-left">
+      <h1 align="center"><b>Manage Catchments</b></h1>
+    </div>
+    <div class="alert-info col-md-8 ">
+                  {% if messages %}
+                      {% for message in messages %}
+                  <!-- For Failure -->
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                          {% if message.tags == 'error' %}
+                            <div class="alert alert-danger" style="margin-top:10px">{{message}}</div>
+                          {% endif %}
+                  <!-- For Success -->
+                          {% if message.tags == 'success' %}
+                            <div class="alert alert-success" style="margin-top:10px">{{message}}</div>
+                          {% endif %}
+                      {% endfor %}
+                 {% endif %}
+                          {% comment %} <strong><span class="glyphicon glyphicon-ok"></span>   </strong> {% endcomment %}
+              </div>
+  </div>
+</div><br>
+<div class="box-body bg-info">
+  <form role="form" method="post" action="/edit_facility_save" >
+      {% csrf_token %}
+
+      <div class="row " style="padding-left: 500px">
+          <div class="col-md-6">
+            <div class="form-group col-md-10">
+              <label><b>Facility</b></label>
+              <input type="text" class="form-control" name="facility_name" readonly value="{{facility.facility_name}} ">
+              <input type="hidden" name="facility_id" value={{facility.id}}>
+          </div><br>
+          
+              <div class="form-group col-md-10">
+                  <label for="type_of_referal"><b>Can Refer To</b></label>
+                  <select class="form-control" name="facility">
+                    <option value="">---------------------Can Refer To -----------</option>
+                  {% for facility in facilitys %}
+                    <option value={{facility.id}}>{{facility.facility_name}}</option>
+                   {% endfor %}
+                  </select>
+          </div><br>
+      
+          <div class="col-md-10" align="center">
+            <div class="form-group col-md-12">
+              <input type="submit"  value="submit">
+              
+            </div> 
+        
+  </div>
+        
+   
+  </div> 
+</div> 
+   
+  </form>
+  <div class="col-lg-12">
+    <!--Project Activity start-->
+    <section class="panel">
+      <div class="panel-body progress-panel">
+        <div class="row">
+          <div class="col-lg-12 task-progress pull-left">
+            <h1 align="center"><b>LIST&nbsp;&nbsp; OF&nbsp;&nbsp; CATCHMENTS &nbsp;&nbsp; FOR &nbsp;&nbsp; {{facility.facility_name}} &nbsp;&nbsp;HOSPITAL</b></h1>
+          </div>
+          
+        </div>
+      </div>
+  
+  <table class="table table-striped"table-condensed>
+    <thead> 
+          <tr class="bg-teal">
+            <!-- <th style="text-align: center; border-bottom-right-radius:10px;"><b>ID</b></th> -->
+            <th style="text-align: center; border-bottom-right-radius:10px;"><b>FACILITY NAME</b></th>
+            <th style="text-align: center; border-bottom-right-radius:10px;"><b>ACTION</b></th>
+          </tr>
+    </thead>
+          <tbody>
+            {% for facility in facilitys_can %}
+            <tr>
+              <!-- <td style="text-align: center; border-bottom-right-radius:20px;"><b>{{facility.id}}</b></td> -->
+              <td style="text-align: center; border-bottom-right-radius:20px;"><b>{{facility.facility_name}}</b></td>
+              {% comment %} <td style="text-align: center; border-bottom-right-radius:20px;"><b>{{facility.facility_name}}</b></td> {% endcomment %}
+              <td style="text-align: center; border-bottom-right-radius:20px;"><a href="#" class="btn btn-danger">Delete</a></td>
+              <!-- delete_facility/ {{facility.id}}  -->
+            </tr>
+          {% endfor %}
+
+            
+
+          </tbody>
+        </table>
+      </section>
+      <!--Project Activity end-->
+    </div>
+  </div><br><br><br><br><br><br><br><br>
+  
+  
+  {% endblock main_content %}
+  

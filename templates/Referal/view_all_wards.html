@@ -1,0 +1,58 @@
+{% extends "Referal/liaizon/base_customer.html" %}
+{% load static %}
+{% block main_content %}
+	<!-- main content -->
+<!-- ****** table  start ********** -->
+		<div class="row">
+			<div class="col-sm-12">
+				<div class="card">
+					<div class="card-header">
+						<h3 class="text-primary">Ward Lists<strong></strong></h3>
+					</div>
+					<div class="card-content">
+						<table class="table table-striped table-hover">
+							<thead>
+                                <tr class="bg-teal">
+                                <th>Type Of Ward</th>
+                                <th>Ward Name</th>
+                                <th>Description </th>
+                                <th>Created Date</th>
+                                <th>Created by</th>
+                                <th>Action</th>
+
+                                </tr>
+							</thead>
+							<tbody>
+                                    {% for c in enquiry %}
+                                    <tr>
+                                        <td>{{c.ward_type}}</td>
+                                        <td>{{c.ward_name}}</td>
+                                        <td>{{c.ward_desc}}</td>
+                                        <td>{{c.created_date}}</td>
+                                        <td>{{c.created_by}}</td>
+                                        <td>
+                                            <a class="btn btn-sm btn-success" href="{% url 'edit_ward' pk=c.id  %}"><i class="fa fa-pencil"></i> Edit</a>
+                                            <a class="btn btn-sm btn-danger" href="{% url 'edit_ward' pk=c.id  %}"><i class="fa fa-trash"></i> Delete</a>
+                                        </td>
+                                        
+                                    <!-- <td> {{c.type_of_referal}}</td>
+                                    <td>{{c.name_of_patient}}</td>
+                                    <td>{{c.refered_date}}</td> -->
+                                    <!--<td>{{r.problem_description}}</td>-->
+                                        <!--<td><button btn btn-</td>-->
+                                            <!-- <td>
+                                    <h3><a href ="{% url 'Liaizon-request' c.id %}" >Feedback </a></h3>
+                                        </td>
+                                            </a> -->
+                                        </tr>
+                                    {% endfor %}
+
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+<!-- ****** table start ********** -->
+    <!-- end main content -->
+    {% endblock main_content %}

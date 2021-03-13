@@ -1,0 +1,101 @@
+{% extends "Referal/admin/base_admin.html" %}
+{% load static %}
+
+{% block main_content %}
+
+
+
+<div class="panel-body progress-panel">
+  <div class="row">
+    <div class="col-lg-12 task-progress pull-left">
+      <h1 align="center"><b>ADMIN SUMMARY REPORT OF ALL FACILITIES</b></h1>
+    </div>
+    
+  </div>
+</div><br><br>
+  <!-- /.card-header -->
+  <hr/>
+  <div class="card"   style="margin-left:200px;margin-right:200px;" >
+    <div class="card-header">
+      <form method="GET" action="{% url 'admin_report_one' %}" >
+        <div class="row">
+          <div class = "col-sm-4">
+              <div class="form-group" style="margin-left:5px;margin-right:5px;">
+              <input type="text" {% if region %} value="{{region}}" {% endif %} placeholder="Search by Region" name="region">
+              </div>
+          </div>
+          <div class="col-sm-4">
+              <div class="form-group" style="margin-left:5px;margin-right:5px;">
+              <input type="text" {% if facility %} value="{{facility}}" {% endif %} placeholder="Search by Facility" name="facility">
+              </div>
+          </div>
+          <div class="col-sm-4">
+      
+              <div class="form-group" style="margin-left:5px;margin-right:5px;">
+              <input type="submit" value="Search"> 
+              <!-- <input type="button" class= "btn btn-primary" value="Submit"></button> -->
+              </div>
+          
+          </div>
+       </div>
+      </form>
+    </div>
+    </div>
+    <hr/>
+   <br><br><br>
+    <div class="card-body table-responsive p-0" style="margin-left:200px;margin-right:200px;">
+        <table class="table table-hover text-nowrap">
+            <thead>
+              <tr>
+                <th>Indicators</th>
+                <th>Total numbers</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Referral out</td>
+                <td>{{refer_out}}</td>
+              </tr>
+              <tr>
+                <td>Referral in</td>
+                <td>{{refer_in}}</td>
+              </tr>
+              <tr>
+                <td>Emergency referral in</td>
+                <td>{{emrg_refer_in}}</td>
+              </tr>
+              
+              <tr>
+                <td>Number of feed backs sent</td>
+                <td>{{feedback_sent}}</td>
+              </tr>
+              <tr>
+                <td>Number of feedback not sent</td>
+                <td>{{feedback_not_sent}}</td>
+              </tr>
+              <tr>
+                <td>inappropriate referral with respect to medical need</td>
+                <td>{{inapp_with_md}}</td>
+              </tr>
+              <tr>
+                <td>inappropriate referral with respect to patient transportation</td>
+                <td>{{inapp_with_trans}}</td>
+              </tr>
+              <tr>
+                <td>Average waiting time of feedback</td>
+                <td>{{avg_weigh_feedback_time}}</td>
+              </tr>
+              <tr>
+                <td>Re-directed referrals</td>
+                <td>{{re_direct_ref}}</td>
+              </tr>
+            </tbody>
+          </table>
+    </div>
+    <!-- /.card-body -->
+  </div>
+</div>
+
+
+
+{% endblock main_content %}

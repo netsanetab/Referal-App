@@ -1,0 +1,42 @@
+
+{% extends "Referal/regionaladmin/base_regional.html" %}
+{% load static %}
+
+{% block main_content %}
+<!-- *********************** -->
+<div class="row">
+	<div class="col-lg-4 col-md-3 col-sm-12 col-xs-12">
+	  <div class="info-box blue-bg">
+		<i class="fa fa-external-link"></i>
+		<div class="count">{{no_of_facility_count}}</div>
+		<div class="title">No of Facility In the Region</div>
+	  </div>
+	  <!--/.info-box-->
+	</div>
+	<!--/.col-->
+  
+	<div class="col-lg-4 col-md-3 col-sm-12 col-xs-12">
+	  <div class="info-box brown-bg">
+		<i class="fa fa-user-md"></i>
+		<div class="count">{{no_of_users_count}}</div>
+		<div class="title"><b>No Of Liaizon  In The Region</b></div>
+	  </div>
+	  <!--/.info-box-->
+	</div>
+	<!--/.col-->
+  
+	<div class="col-lg-4 col-md-3 col-sm-12 col-xs-12">
+	  <div class="info-box dark-bg">
+		<i class="fa fa-hospital-o"></i>
+		<div class="count">#</div>
+		<div class="title">No</div>
+	  </div>
+	  <!--/.info-box-->
+	</div>
+	
+  
+  </div>
+  <!--/.row-->
+  <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+	
+  {% endblock main_content %}

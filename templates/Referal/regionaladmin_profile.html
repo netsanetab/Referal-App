@@ -1,0 +1,24 @@
+{% extends "Referal/regionaladmin/base_regional.html" %}
+{% load static %}
+
+{% block main_content %}
+
+<h1 style="text-align:center;color:blue;">Edit Your Profile</h1>
+<br><br><br>
+<div class="row " style="padding-left: 500px">
+
+
+  
+  <div class="w3-panel w3-blue">
+    <h3 class="w3-text-orange" style="text-shadow:1px 1px 0 #444"><b>Name : {{regionaladmin}}</b></h3>
+    <h3 class="w3-text-orange" style="text-shadow:1px 1px 0 #444"><b>Region : {{regionaladmin.region}}</b></h3>
+    
+  </div>
+</div>
+
+<div style="text-align: center;">
+  <a href="/edit-mechanic-profile"><button class="button" ><span>Change Password </span></button></a>
+</div>
+
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+{% endblock main_content %}

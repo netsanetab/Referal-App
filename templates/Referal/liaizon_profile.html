@@ -1,0 +1,25 @@
+{% extends "Referal/liaizon/base_customer.html" %}
+{% load static %}
+
+{% block main_content %}
+
+
+
+<br><br><br><br><br>
+<div class="row " style="padding-left: 500px">
+  <!-- <img style="width:200px; height:200px; margin-left:200px;" src="{%static customer.profile_pic.url%}" alt=""> -->
+  <div class="w3-panel w3-blue">
+    <h3 class="w3-text-orange" style="text-shadow:1px 1px 0 #444"><b>Name : {{customer}}</b></h3>
+    <h3 class="w3-text-orange" style="text-shadow:1px 1px 0 #444"><b>Mobile : {{customer.mobile}}</b></h3>
+
+    <h3 class="w3-text-orange" style="text-shadow:1px 1px 0 #444"><b>Address : {{customer.address}}</b></h3>
+    
+  </div>
+</div>
+<br><br><br>
+<div style="text-align: center;">
+  <a href="/edit-liaizon-profile"><button class="button" ><span>Change Password </span></button></a>
+</div>
+
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+{% endblock main_content %}

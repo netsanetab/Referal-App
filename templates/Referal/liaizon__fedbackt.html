@@ -1,0 +1,55 @@
+{% extends 'Referal/customerbase.html' %}
+{% block content %}
+
+	<!-- main content -->
+	<div class="wrapper">
+
+<!-- ****** table  start ********** -->
+		<div class="row">
+			<div class="col-12 col-m-12 col-sm-12">
+				<div class="card">
+					<div class="card-header">
+						<h3 style="color:red; text-align:center" >
+							Approve Referal Out Made By Hospital liaison
+						</h3>
+
+					</div>
+					<div class="card-content">
+						<table>
+							<thead>
+                <tr>
+                  <th>Type Of Referal</th>
+                  <th>Patient Name</th>
+                  <th>Waiting Time </th>
+                  <!--<th>Problem Description</th>-->
+					
+                  <th>Feedback</th>
+
+                </tr>
+							</thead>
+							<tbody>
+                {% for c in enquiry %}
+                <tr>
+                  <td> {{c.type_of_referal}}</td>
+                  <td>{{c.name_of_patient}}</td>
+                  <td>{{c.refered_date}}</td>
+                  <!--<td>{{r.problem_description}}</td>-->
+					<!--<td><button btn btn-</td>-->
+						<td>
+                  <h3><a href ="{% url 'Liaizon-request' c.id %}" >Feedback </a></h3>
+					</td>
+						</a>
+					</tr>
+                {% endfor %}
+
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+<!-- ****** table start ********** -->
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+	</div>
+	<!-- end main content -->
+{% endblock content %}

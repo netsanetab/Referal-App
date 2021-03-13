@@ -1,0 +1,418 @@
+{% extends "layouts/base-fac.html" %}
+
+{% block title %} Tables Data {% endblock %}
+
+<!-- Element injected in the BODY element -->
+{% block body_class %} {% endblock body_class %}
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}
+
+<!-- Google Font: Source Sans Pro -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+<!-- Font Awesome -->
+<link rel="stylesheet" href="/static/assets/plugins/fontawesome-free/css/all.min.css">
+<!-- DataTables -->
+<link rel="stylesheet" href="/static/assets/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+<link rel="stylesheet" href="/static/assets/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+<!-- Theme style -->
+<link rel="stylesheet" href="/static/assets/css/adminlte.min.css">
+<!-- Tempusdominus Bootstrap 4 -->
+<link rel="stylesheet" href="/static/assets/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
+<!-- Select2 -->
+<link rel="stylesheet" href="/static/assets/plugins/select2/css/select2.min.css">
+<link rel="stylesheet" href="/static/assets/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
+
+{% endblock stylesheets %}
+
+{% block content %}
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+  <!-- Content Header (Page header) -->
+  <section class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h3 class="page-header text-teal"><span class="lite"><strong
+                style=" text-shadow: 5px 6px 5px rgba(180, 190, 190, 1);"> Welcome To {{hos}} Hospital -
+                {{ward.ward_name}} Ward </strong></span></h3>
+        </div>
+        <div class="col-sm-6">
+          <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a href="#">Ward</a></li>
+            <li class="breadcrumb-item active">Manage Ward Rooms</li>
+          </ol>
+        </div>
+      </div>
+    </div><!-- /.container-fluid -->
+  </section>
+
+  <!-- Main content -->
+  <section class="content">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-12 col-sm-6 col-md-3">
+          <div class="info-box">
+            <span class="info-box-icon bg-teal elevation-1"><i class="fas fa-bed"></i></span>
+
+            <div class="info-box-content">
+              <span class="info-box-text text-info">Total Beds in Ward</span>
+              <span class="info-box-number text-info">{{total}}</span>
+            </div>
+            <!-- /.info-box-content -->
+          </div>
+          <!-- /.info-box -->
+        </div>
+        <!-- /.col -->
+        <div class="col-12 col-sm-6 col-md-3">
+          <div class="info-box mb-3">
+            <span class="info-box-icon bg-teal elevation-1"><i class="fas fa-bed"></i></span>
+
+            <div class="info-box-content">
+              <span class="info-box-text text-info">Total Free Beds</span>
+              <span class="info-box-number text-info">{{free}}</span>
+            </div>
+            <!-- /.info-box-content -->
+          </div>
+          <!-- /.info-box -->
+        </div>
+        <!-- /.col -->
+
+        <!-- fix for small devices only -->
+        <div class="clearfix hidden-md-up"></div>
+
+        <div class="col-12 col-sm-6 col-md-3">
+          <div class="info-box mb-3">
+            <span class="info-box-icon bg-teal elevation-1"><i class="fas fa-bed"></i></span>
+
+            <div class="info-box-content">
+              <span class="info-box-text text-info text-shadow">Free Male Beds</span>
+              <span class="info-box-number text-info">{{male_free}}</span>
+            </div>
+            <!-- /.info-box-content -->
+          </div>
+          <!-- /.info-box -->
+        </div>
+        <!-- /.col -->
+        <div class="col-12 col-sm-6 col-md-3">
+          <div class="info-box mb-3">
+            <span class="info-box-icon bg-teal elevation-1"><i class="fas fa-bed"></i></span>
+
+            <div class="info-box-content">
+              <span class="info-box-text text-info">Free Female beds</span>
+              <span class="info-box-number text-info">{{female_free}}</span>
+            </div>
+            <!-- /.info-box-content -->
+          </div>
+          <!-- /.info-box -->
+        </div>
+        <!-- /.col -->
+        {% if messages %}
+        <div class="col-12">
+          {% for message in messages %}
+          {% if message.tags == "error" %}
+          <div class="alert alert-dismissible fade show col-3 float-right" role="alert"
+            style="margin-top: 10px; background: lightcoral;">
+            {{ message }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          {% elif message.tags == "success" %}
+          <div class="alert alert-dismissible fade show col-3 float-right" role="alert"
+            style="margin-top: 10px; background: lightgreen;">
+            {{ message }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          {% endif %}
+          {% endfor %}
+        </div>
+        {% endif %}
+        <div class="col-12">
+          <div class="card card-teal card-outline">
+            <div class="card-header">
+              <h3 class="card-title"><strong> <i class="fas fa-list"></i> Room Lists</strong></h3>
+              <button type="button" class="btn btn-sm bg-teal float-sm-right" data-toggle="modal"
+                data-target="#modal-lg">
+                <i class="fas fa-plus-circle"></i> Room
+              </button>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body">
+              <table id="example1" class="table table-striped table-condesed">
+                <thead class="bg-teal">
+
+
+                  <tr>
+                    <th>#</th>
+                    <th>Room No.</th>
+                    <th style="text-align: center;">Room Type</th>
+                    <th style="text-align: center;">Number of Beds</th>
+                    <th style="text-align: center;">Free Beds</th>
+                    <th>Updated at</th>
+                    <th>Updated by</th>
+                    <th style="text-align: center;">Action</th>
+                  </tr>
+
+                </thead>
+                <tbody>
+                  {% for room in rooms %}
+                  <tr>
+                    <td>{{forloop.counter}}</td>
+                    <td>{{room.room_no}}</td>
+                    <td style="text-align: center;">
+                      {% if room.room_type == 'Male' %}
+                      <span class="badge badge-info right">{{room.room_type}}</span>
+                      {% elif room.room_type == 'Female' %}
+                      <span class="badge badge-danger right">{{room.room_type}}</span>
+                      {% else %}
+                      <span class="badge badge-teal right">{{room.room_type}}-(M & F)</span>
+                      {% endif %}
+                    </td>
+                    <td style="text-align: center;">
+                      {% if room.room_type == 'Male' %}
+                      <span class="badge badge-info right">{{room.no_beds}}</span>
+                      {% elif room.room_type == 'Female' %}
+                      <span class="badge badge-danger right">{{room.no_beds}}</span>
+                      {% else %}
+                      <span class="badge badge-teal right">{{room.no_beds}}</span>
+                      {% endif %}
+                    </td>
+                    <td style="text-align: center;">
+                      {% if room.room_type == 'Male' %}
+                      <span class="badge badge-info right">{{room.free_beds}}</span>
+                      {% elif room.room_type == 'Female' %}
+                      <span class="badge badge-danger right">{{room.free_beds}}</span>
+                      {% else %}
+                      <span class="badge badge-teal right">{{room.free_beds}}</span>
+                      {% endif %}
+                    </td>
+                    <td>{{room.updated_at}}</td>
+                    <td>{{room.created_by}}</td>
+                    <td style="text-align: center;">
+                      <a class="" href="" data-toggle="modal" data-target="#modal-lg-{{room.id}}">
+                        <li class="fa fa-edit text-primary"></li>
+                      </a>
+                      <a class="" href="{% url 'delete_room' room.id %}">
+                        <li class="fa fa-trash text-danger"></li>
+                      </a>
+                    </td>
+                  </tr>
+                  <div class="modal fade " id="modal-lg-{{room.id}}">
+                    <div class="modal-dialog modal-lg">
+                      <div class="modal-content">
+                        <div class="modal-header bg-teal">
+                          <h4 class="modal-title">
+                            <li class="fa fa-edit"></li> Update Room
+                          </h4>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div class="modal-body">
+                          <form id="quickForm" class="form-horizontal" method="post" action="/edit_room_save">
+                            {% csrf_token %}
+                            <div class="card-body">
+                              <div class="form-group row">
+                                <input type="hidden" name="ward_id" value="{{ward.id}}">
+                                <input type="hidden" name="room_id" value="{{room.id}}">
+                                <label for="first_name" class="col-sm-3 col-form-label" style="text-align: right;">Room
+                                  No.</label>
+                                <div class="col-sm-8">
+                                  <input type="text" class="form-control" name="room_no" id="room_no"
+                                    value="{{room.room_no}}" placeholder="Room Number/Name" required>
+                                </div>
+                              </div>
+                              <div class="form-group row">
+                                <label for="desc" class="col-sm-3 col-form-label"
+                                  style="text-align: right;">Description</label>
+                                <div class="col-sm-8">
+                                  <input type="text" class="form-control" name="room_desc" id="room_desc"
+                                    value="{{room.room_desc}}" placeholder="Room Description">
+                                </div>
+                              </div>
+                              <div class="form-group row">
+                                <label for="male_beds" class="col-sm-3 col-form-label" style="text-align: right;">Male
+                                  Beds</label>
+                                <div class="col-sm-8">
+                                  <input type="number" class="form-control" name="tot_mbeds" placeholder="Male Beds"
+                                    value="{{room.tot_mbeds}}" required>
+                                </div>
+                              </div>
+                              <div class="form-group row">
+                                <label for="female_bed" class="col-sm-3 col-form-label"
+                                  style="text-align: right;">Female Beds</label>
+                                <div class="col-sm-8">
+                                  <input type="number" class="form-control" name="tot_fbeds" placeholder="Female Bed"
+                                    value="{{room.tot_fbeds}}" required>
+                                </div>
+                              </div>
+                              <div class="form-group row">
+                                <label for="male_beds" class="col-sm-3 col-form-label"
+                                  style="text-align: right;">Occupied Male Beds</label>
+                                <div class="col-sm-8">
+                                  <input type="number" class="form-control" name="occupied_mbeds"
+                                    placeholder="Occupied Male Beds" value="{{room.occupied_mbeds}}">
+                                </div>
+                              </div>
+                              <div class="form-group row">
+                                <label for="female_bed" class="col-sm-3 col-form-label"
+                                  style="text-align: right;">Occopied Female Beds</label>
+                                <div class="col-sm-8">
+                                  <input type="number" class="form-control" name="occupied_fbeds"
+                                    placeholder="Occupied Female Bed" value="{{room.occupied_fbeds}}">
+                                </div>
+                              </div>
+                              <div class="form-group row">
+                                <label class="col-sm-3 col-form-label"></label>
+                                <div class="col-sm-8">
+                                  <button type="submit" class="btn bg-teal"><i class="fas fa-save"></i> Save</button>
+                                  <a class="btn btn-default" href='{% url "view_ward" ward.id %}'> Cancel</a>
+                                </div>
+                              </div>
+                            </div>
+                          </form>
+                        </div>
+                      </div>
+                      <!-- /.modal-content -->
+                    </div>
+                    <!-- /.modal-dialog -->
+                  </div>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+            <!-- /.card-body -->
+          </div>
+          <!-- /.card -->
+        </div>
+
+        <div class="modal fade " id="modal-lg">
+          <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+              <div class="modal-header bg-teal">
+                <h4 class="modal-title"><i class="fas fa-plus-circle"></i> Add Room Info</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <form id="quickForm" class="form-horizontal" method="post" action="/add_room_save">
+                  {% csrf_token %}
+                  <div class="card-body">
+                    <div class="form-group row">
+                      <input type="hidden" name="ward_id" value="{{ward.id}}">
+                      <label for="room_name" class="col-sm-3 col-form-label" style="text-align: right;">Room Number/Name
+                      </label>
+                      <div class="col-sm-8">
+                        <input type="text" class="form-control" name="room_no" id="room_no"
+                          placeholder="Room Number/Name" required>
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label for="room_type" class="col-sm-3 col-form-label" style="text-align: right;">Room
+                        Type</label>
+                      <div class="col-sm-8">
+                        <select class="form-control select select2" style="width: 100%;" name="room_type"
+                          data-placeholder="Select Option">
+                          <option value=""></option>
+                          {% for gen in gen %}
+                          <option value={{gen}}> Room for {{gen}}</option>
+                          {% endfor %}
+                        </select>
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label for="male_beds" class="col-sm-3 col-form-label" style="text-align: right;">Number of
+                        Beds</label>
+                      <div class="col-sm-8">
+                        <input type="number" class="form-control" name="no_beds" placeholder="Enter Number of Beds"
+                          required>
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label for="occ_beds" class="col-sm-3 col-form-label" style="text-align: right;">Occupied Beds
+                      </label>
+                      <div class="col-sm-8">
+                        <input type="number" class="form-control" name="occ_beds" placeholder="Occupied Beds" required>
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label class="col-sm-3 col-form-label"></label>
+                      <div class="col-sm-8">
+                        <button type="submit" class="btn bg-teal"><i class="fas fa-save"></i> Save</button>
+                        <a class="btn btn-default" href='{% url "view_ward" ward.id %}'> Cancel</a>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+            <!-- /.modal-content -->
+          </div>
+          <!-- /.modal-dialog -->
+        </div>
+        <!-- /.modal -->
+
+        <!-- /.col -->
+      </div>
+      <!-- /.row -->
+    </div>
+    <!-- /.container-fluid -->
+  </section>
+  <!-- /.content -->
+</div>
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+
+<!-- jQuery -->
+<script src="/static/assets/plugins/jquery/jquery.min.js"></script>
+<!-- Bootstrap 4 -->
+<script src="/static/assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- DataTables -->
+<script src="/static/assets/plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="/static/assets/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+<script src="/static/assets/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+<script src="/static/assets/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+<!-- AdminLTE App -->
+<script src="/static/assets/js/adminlte.min.js"></script>
+<!-- AdminLTE for demo purposes -->
+<script src="/static/assets/js/demo.js"></script>
+<!-- Tempusdominus Bootstrap 4 -->
+<script src="/static/assets/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
+<!-- Select2 -->
+<script src="/static/assets/plugins/select2/js/select2.full.min.js"></script>
+<!-- page script -->
+<script>
+  $(function () {
+    //Initialize Select2 Elements
+    $('.select2').select2()
+
+    //Initialize Select2 Elements
+    $('.select2bs4').select2({
+      theme: 'bootstrap4'
+    });
+
+    $("#example1").DataTable({
+      "responsive": true,
+      "autoWidth": false,
+    });
+    $('#example2').DataTable({
+      "paging": true,
+      "lengthChange": false,
+      "searching": false,
+      "ordering": true,
+      "info": true,
+      "autoWidth": false,
+      "responsive": true,
+    });
+  });
+</script>
+
+{% endblock javascripts %}

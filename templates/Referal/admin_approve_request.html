@@ -1,0 +1,52 @@
+{% extends 'Referal/adminbase.html' %}
+{% block content %}
+
+	<!-- main content -->
+	<div class="wrapper">
+
+<!-- ****** table  start ********** -->
+		<div class="row">
+			<div class="col-12 col-m-12 col-sm-12">
+				<div class="card">
+					<div class="card-header">
+						<h3 style="color:red; text-align:center" >
+							Approve Referal Out Made By Hospital liaison
+						</h3>
+
+					</div>
+					<div class="card-content">
+						<table>
+							<thead>
+                <tr>
+                  <th>Type Of Referal</th>
+                  <th>Patient Name</th>
+                  <th>Waiting Time </th>
+                  <!--<th>Problem Description</th>-->
+					<th>Action</th>
+                  <th>Approve</th>
+                  
+                </tr>
+							</thead>
+							<tbody>
+                {% for r in enquiry %}
+                <tr>
+                  <td> {{r.type_of_referal}}</td>
+                  <td>{{r.name_of_patient}}</td>
+                  <td>{{r.refered_date}}</td>
+                  <!--<td>{{r.problem_description}}</td>-->
+					<td><button btn btn-</td>
+                  <td><a  style="color:red; text-decoration:none;font-size:25px;" href="{% url 'approve-request' r.id  %}">&#10004;</a></td>
+                    </tr>
+                {% endfor %}
+
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+<!-- ****** table start ********** -->
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+	</div>
+	<!-- end main content -->
+{% endblock content %}

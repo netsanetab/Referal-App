@@ -6,7 +6,8 @@ import datetime
 
 class Service(models.Model):
     name = models.CharField(max_length=30)
-    def __str__(self):
+    def __str__(self):   
+        # commment 
         return self.name
 
 class Facility(models.Model):
